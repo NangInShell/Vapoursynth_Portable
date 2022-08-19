@@ -1,0 +1,2 @@
+# vs_real_cugan
+适用于Vapoursynth的Real-cugan动漫二次元超分辨率脚本以及运行环境。
