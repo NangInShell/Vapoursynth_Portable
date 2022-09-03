@@ -1,6 +1,6 @@
 #如果你单纯想先看看脚本效果可以直接开跑
 #增删或修改里面的函数以及参数的设置请确保你理解它们的用途并且清楚它们的用法。
-#脚本尚处于测试阶段，有问题请联系NangInShell@https://github.com/manang666
+#脚本尚处于测试阶段，有问题请联系NangInShell@https://github.com/NangInShell
 
 
 import vapoursynth as vs
