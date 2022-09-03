@@ -1,6 +1,6 @@
 #这是一个集成了多种动漫超分辨率算法的脚本
 #增删或修改里面的函数以及参数的设置请确保你理解它们的用途并且清楚它们的用法。
-#脚本尚处于测试阶段，有问题请联系NangInShell@https://github.com/manang666
+#脚本尚处于测试阶段，有问题请联系NangInShell@https://github.com/NangInShell
 #欢迎大佬们提BUG和改进建议
 
 
