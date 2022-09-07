@@ -1,5 +1,7 @@
 # vs_real_cugan
 
+适用于Vapoursynth的Real-cugan动漫二次元超分辨率脚本以及完整运行环境。    
+
 便携版文件包（包含了VS，VSEditor，ffmpeg，python等便携环境，下载解压即可使用）：  
 ```
 百度网盘下载地址：
