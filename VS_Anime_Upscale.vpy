@@ -10,6 +10,7 @@ import havsfunc as haf
 import vsTAAmbk as taa
 import lvsfunc
 
+from rekt import *
 from adptvgrnMod import adptvgrnMod
 from vsmlrt import CUGAN,Backend#vs-mlrt
 from upcunet_v20220227_vs import RealWaifuUpScaler#pytorch
@@ -29,7 +30,9 @@ def upscale(clip):
        
 #src是视频源文件，res是中间处理文件,这里区分以便于后面对比预览
 src = core.lsmas.LWLibavSource(r"D:\VS_test\NCED1.m2ts")
-src = core.resize.Bicubic(clip=src,format=vs.YUV420P10)#转换为Yuv444 16bit,这里是参照组，最好不要修改。添加matrix_s参数可以指定色域。
+
+
+src = core.resize.Bicubic(clip=src,format=vs.YUV444P16)#转换为Yuv444 16bit,这里是参照组，最好不要修改。添加matrix_s参数可以指定色域。
 res = src#中间处理文件
 
 
@@ -51,13 +54,14 @@ res = src#中间处理文件
 
 #res=core.knlm.KNLMeansCL(res,d=1,a=2,h=3,device_type='GPU',device_id=0)#去噪点。这里为了通用性使用了简单的参数，其他参数可以查文档自定义
 
+#res = core.resize.Bicubic(clip=res,format=vs.YUV444P16)#这一步可以指定长宽width,height来进行缩放,添加matrix_s参数可以指定色域。
+
 #滤镜预处理分界线-------------------------------------------------------------滤镜预处理分界线
 
 
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
 
-res = core.resize.Bicubic(clip=res,format=vs.YUV444P16)#这一步可以指定长宽width,height来进行缩放,添加matrix_s参数可以指定色域。.
 
 res = mvf.ToRGB(res,matrix="709",depth=32)#添加matrix参数可以指定色域。real-cugan超分辨率前必须转为RGB格式。
 
@@ -71,6 +75,7 @@ res = upscale(res) #vs-mlrt,推荐使用
 
 #经过测试下面两个函数按相同的参数转换出来的单帧图片是一致的，保存为PNG大小一致。想用哪个用哪个
 #src = mvf.ToYUV(src,depth=16,matrix="709",css="444")
+
 res = core.resize.Bicubic(clip=res,matrix_s="709",format=vs.YUV444P16)#添加matrix_s参数可以指定色域,这一步可以指定长宽width,height来进行缩放
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
@@ -83,11 +88,11 @@ res = core.resize.Bicubic(clip=res,matrix_s="709",format=vs.YUV444P16)#添加mat
 
 
 
-# Debug=1，片源和成品交错显示，可以在预览通过键盘左右键对比；Debug=0，正常输出。
+
 # (很重要)当Debug=1的时候,交错显示视频源和超分辨率处理后的视频，使用Debug=1时请保证输入的cilp的width和height相同
 # (很重要)当Debug=2的时候,将源视频画面和超分后的视频画面左右拼接为一个画面，使用Debug=2时请保证输入的cilp的width和height相同
 # (很重要)当Debug=其他值的时候,即为成片预览，可以使用vspipe和ffmpeg输出成品
-Debug = 2
+Debug = 0
 if Debug == 1: 
     src=core.resize.Bicubic(clip=src,width=3840,height=2160,format=vs.YUV444P16)#需要保证二者格式和长宽一致,这里使用bicubic放大源
     res=core.resize.Bicubic(clip=res,width=3840,height=2160,format=vs.YUV444P16)#需要保证二者格式和长宽一致
