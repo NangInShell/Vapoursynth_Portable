@@ -3,10 +3,10 @@
 适用于Vapoursynth的Real-cugan动漫二次元超分辨率脚本以及完整运行环境。    
 
 便携版文件包（包含了VS，VSEditor，ffmpeg，python等便携环境，下载解压即可使用）：  
-```
+
 百度网盘下载地址：
-https://pan.baidu.com/s/1N3AEyUj69LxnmZli4mX3sg?pwd=Nang 
-```
+[下载地址](https://pan.baidu.com/s/15Ahbi9W3Z4ESClrAGiRJfQ?pwd=Nang)
+
 
 ![image](https://user-images.githubusercontent.com/72263191/188761438-75254ca4-607e-41e5-b3d0-96525bf98a5c.png)
 
