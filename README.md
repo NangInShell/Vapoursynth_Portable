@@ -1,6 +1,6 @@
 # vs_real_cugan
 
-适用于Vapoursynth的Real-cugan动漫二次元超分辨率脚本以及完整运行环境。    
+适用于Vapoursynth的Real-cugan动漫二次元超分辨率脚本以及完整运行环境，内置了基于vs-mlrt的Cugan,Esrgan,Waifu2x以及之外的Anime4K超分辨率算法。    
 
 便携版文件包（包含了VS，VSEditor，ffmpeg，python等便携环境，下载解压即可使用）：  
 
