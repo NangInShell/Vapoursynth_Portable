@@ -63,7 +63,7 @@ res = core.resize.Bicubic(clip=res,matrix_s='709',format=vs.YUV420P10)
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
 
-#res = adptvgrnMod(res, size=1, strength=[500,500], sharp=100, fade_edges=10, luma_scaling=50, seed=1, show_mask=0)
+#res = adptvgrnMod(res, size=0.5, strength=[100,10], sharp=100, fade_edges=10, luma_scaling=50, seed=1, show_mask=0)
 
 #最后滤镜处理和输出================================================================================最后滤镜处理和输出#
 
