@@ -59,7 +59,7 @@ res = core.resize.Bicubic(clip=res,width=1920,height=1080,format=vs.YUV444P16)
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
 
-res = core.resize.Bicubic(clip=res,range=0,format=vs.RGB48)
+res = core.resize.Bicubic(clip=res,range=0,matrix_s="709",format=vs.RGB48)
 res=core.fmtc.bitdepth(res, bits=32)
 
 #res = waifu2x_US(res) 
