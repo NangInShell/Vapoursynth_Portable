@@ -64,7 +64,7 @@ res = src#中间处理文件
 
 #res = core.resize.Bicubic(clip=res)#这一步可以指定长宽width,height来进行缩放,添加matrix_s参数可以指定色域。.
 
-res = core.resize.Bicubic(clip=res,range=0,format=vs.RGB48)#添加matrix参数可以指定色域。real-cugan超分辨率前必须转为RGB格式。
+res = core.resize.Bicubic(clip=res,range=0,matrix_s="709",format=vs.RGB48)#添加matrix参数可以指定色域。real-cugan超分辨率前必须转为RGB格式。
 res=core.fmtc.bitdepth(res, bits=32)
 
 #超分辨率函数,上面定义的函数
