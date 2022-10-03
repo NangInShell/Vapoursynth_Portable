@@ -17,16 +17,23 @@ def waifu2x_US(clip):
         return clip
 
 def cugan_US(clip):
-        clip = CUGAN(clip, noise=0, scale=2, tiles=2,version=2,alpha=1, backend=Backend.ORT_CUDA())
+        clip = CUGAN(clip, noise=0, scale=2, tiles=2,version=2,alpha=0.8, backend=Backend.ORT_CUDA())
         return clip
        
 def esrgan_US(clip):
         clip = RealESRGAN(clip, scale=2,tiles=2, tilesize=None, overlap=None,model=2, backend=Backend.ORT_CUDA())
         return clip
 
-src = core.lsmas.LWLibavSource(r"D:\VS_test\VS脚本\MV.mkv")
-src = core.resize.Bicubic(clip=src,width=1920,height=1080,format=vs.YUV420P10)
+src = core.lsmas.LWLibavSource(r"D:\VS_NangInShell\VS_Nang\MV.mp4")
+src = core.resize.Bicubic(clip=src,format=vs.YUV444P16)
 res = src
+
+#res = core.resize.Lanczos(clip=res, format=vs.RGBS, width=None, height=None,matrix_in_s="2020ncl", transfer_s="linear",nominal_luminance=400)
+#res = core.tonemap.Mobius(res, exposure=5, transition=0.9, peak=100)
+#res = core.resize.Lanczos(clip=res, format=vs.YUV420P10, matrix_s="709",primaries_in_s="2020",  primaries_s="709", transfer_s="709")
+#src=res
+
+res = core.resize.Bicubic(clip=res,width=1920,height=1080,format=vs.YUV444P16)
 
 #滤镜预处理分界线-------------------------------------------------------------滤镜预处理分界线
 
@@ -52,30 +59,32 @@ res = src
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
 
-res = mvf.ToRGB(res,matrix="709",depth=32)
+res = core.resize.Bicubic(clip=res,range=0,format=vs.RGB48)
+res=core.fmtc.bitdepth(res, bits=32)
 
 #res = waifu2x_US(res) 
-res = cugan_US(res)
+res= cugan_US(res)
 #res = esrgan_US(res) 
 #res=core.anime4kcpp.Anime4KCPP(res, GPUMode = 1, ACNet = 1, zoomFactor = 2, HDN = 1, HDNLevel = 1)
 
-res = core.resize.Bicubic(clip=res,matrix_s='709',format=vs.YUV420P10)
+
+
+res = core.resize.Bicubic(clip=res,matrix_s="709",format=vs.YUV420P10)
 
 #超分辨率处理|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||超分辨率处理#
 
-#res = adptvgrnMod(res, size=0.5, strength=[100,10], sharp=100, fade_edges=10, luma_scaling=50, seed=1, show_mask=0)
-
+#res = adptvgrnMod(res, size=0.4, strength=[100,10], sharp=10, fade_edges=10, luma_scaling=50, seed=1, show_mask=0)
 #最后滤镜处理和输出================================================================================最后滤镜处理和输出#
 
-Debug = 0
+Debug = 2
 if Debug == 1: 
     src=core.resize.Bicubic(clip=src,width=1920,height=1080,format=vs.YUV444P16)
     res=core.resize.Bicubic(clip=res,width=1920,height=1080,format=vs.YUV444P16)
     compare=core.std.Interleave([src,res],modify_duration=False)
     compare=mvf.ToRGB(compare,full=False,depth=16).set_output()
 elif Debug == 2:
-    src=core.resize.Bicubic(clip=src,width=1920,height=1080,format=vs.YUV444P16)
-    res=core.resize.Bicubic(clip=res,width=1920,height=1080,format=vs.YUV444P16)
+    src=core.resize.Bicubic(clip=src,width=3840,height=2160,format=vs.YUV444P16)
+    res=core.resize.Bicubic(clip=res,width=3840,height=2160,format=vs.YUV444P16)
     compare=lvsfunc.comparison.tile(src,res)
     compare.set_output()
 else:
