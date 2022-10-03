@@ -32,7 +32,7 @@ def esrgan_US(clip):
         return clip
        
 #src是视频源文件，res是中间处理文件,这里区分以便于后面对比预览
-src = core.lsmas.LWLibavSource(r"D:\VS_test\VS脚本\MV.mkv")
+src = core.lsmas.LWLibavSource(r"D:\VS_NangInShell\VS_Nang\Test.png")
 src = core.resize.Bicubic(clip=src,format=vs.YUV420P10)#转换为Yuv420 10bit,这里是参照组，最好不要修改。添加matrix_s参数可以指定色域。
 res = src#中间处理文件
 
@@ -64,11 +64,12 @@ res = src#中间处理文件
 
 #res = core.resize.Bicubic(clip=res)#这一步可以指定长宽width,height来进行缩放,添加matrix_s参数可以指定色域。.
 
-res = mvf.ToRGB(res,matrix="709",depth=32)#添加matrix参数可以指定色域。real-cugan超分辨率前必须转为RGB格式。
+res = core.resize.Bicubic(clip=res,range=0,format=vs.RGB48)#添加matrix参数可以指定色域。real-cugan超分辨率前必须转为RGB格式。
+res=core.fmtc.bitdepth(res, bits=32)
 
 #超分辨率函数,上面定义的函数
 #res = waifu2x_US(res) 
-res = cugan_US(res)
+#res = cugan_US(res)
 #res = esrgan_US(res) 
 #res=core.anime4kcpp.Anime4KCPP(res, GPUMode = 1, ACNet = 1, zoomFactor = 2, HDN = 1, HDNLevel = 1)
 
