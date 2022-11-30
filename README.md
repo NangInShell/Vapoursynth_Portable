@@ -5,7 +5,7 @@
 便携版文件包（包含了VS，VSEditor，ffmpeg，python等便携环境，下载解压即可使用）：  
 
 百度网盘下载地址：
-[下载地址](https://pan.baidu.com/s/1VuZU02-PZ789J9xzycat7w?pwd=Nang)
+[下载地址](https://pan.baidu.com/s/11nPGh3yhJZbYhl5r7KFMsw?pwd=Nang)
 
 
 
